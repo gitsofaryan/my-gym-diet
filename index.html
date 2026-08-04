@@ -20,44 +20,19 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <!-- ═══════════════════════════════════════════════════════
-       FULL-SCREEN INTRO SPLASH (Goku GIF ready)
-       ═══════════════════════════════════════════════════════ -->
-    <div id="splash" class="splash">
-      <div class="splash-inner">
-        <div class="splash-glow"></div>
-        <div class="splash-frame">
-          <img
-            src="goku.gif"
-            alt="Loading"
-            class="splash-gif"
-            id="splash-gif"
-            data-duration-ms="10000"
-            loading="eager"
-            fetchpriority="high"
-            decoding="async"
-            onerror="
-              this.style.display = 'none';
-              document.getElementById('splash-fallback').style.display = 'flex';
-            "
-          />
-          <div
-            id="splash-fallback"
-            class="splash-fallback"
-            style="display: none"
-          >
-            <div class="energy-ring"></div>
-            <span class="energy-bolt">⚡</span>
-          </div>
-        </div>
-        <!-- removed splash name and progress bar to let GIF display uninterrupted -->
-      </div>
-    </div>
-
-    <!-- ═══════════════════════════════════════════════════════
-       PAGE CONTENT
-       ═══════════════════════════════════════════════════════ -->
     <div class="page">
+      <section class="intro-visual" aria-label="Intro animation">
+        <img
+          src="goku.gif"
+          alt="Intro animation"
+          class="intro-gif"
+          id="intro-gif"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+        />
+      </section>
+
       <!-- Header -->
       <header class="hero">
         <div class="hero-row">

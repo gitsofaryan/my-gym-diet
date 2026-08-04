@@ -4,7 +4,6 @@
  */
 
 document.addEventListener("DOMContentLoaded", () => {
-  const splash = document.getElementById("splash");
   const clockEl = document.getElementById("clock");
   const cards = document.querySelectorAll(".card");
   const quoteText = document.getElementById("quote-text");
@@ -52,51 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   ];
 
-  /* ── 1. Splash — wait for GIF to finish (use data-duration-ms on the img)
-       If no duration is provided, fall back to 3500ms. */
-  (function handleSplash() {
-    const gif = document.getElementById("splash-gif");
-    const defaultMs = 3500;
-    let hideTimer = null;
-
-    function hideSplash() {
-      if (splash) splash.classList.add("done");
-    }
-
-    function scheduleHide(ms) {
-      if (hideTimer) clearTimeout(hideTimer);
-      hideTimer = setTimeout(hideSplash, ms);
-    }
-
-    if (gif) {
-      const dataMs = parseInt(gif.dataset.durationMs, 10);
-      const playMs = !Number.isNaN(dataMs) && dataMs > 0 ? dataMs : defaultMs;
-
-      const startCountdown = () => {
-        if (!gif.naturalWidth) {
-          scheduleHide(defaultMs);
-          return;
-        }
-
-        // Give the browser a frame to paint the first decoded frame before the countdown starts.
-        requestAnimationFrame(() => scheduleHide(playMs + 120));
-      };
-
-      if (gif.complete) {
-        startCountdown();
-        return;
-      }
-
-      gif.addEventListener("load", startCountdown, { once: true });
-      gif.addEventListener("error", () => scheduleHide(defaultMs), {
-        once: true,
-      });
-    } else {
-      scheduleHide(defaultMs);
-    }
-  })();
-
-  /* ── 2. Live clock ──────────────────────────────────── */
+  /* ── 1. Live clock ──────────────────────────────────── */
   function tick() {
     const now = new Date();
     let h = now.getHours();
@@ -108,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
     highlight(now.getHours(), now.getMinutes());
   }
 
-  /* ── 3. Card highlighting ───────────────────────────── */
+  /* ── 2. Card highlighting ───────────────────────────── */
   function highlight(hour, min) {
     const now = hour * 60 + min;
     let found = false;
@@ -147,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  /* ── 4. Quote fetching ──────────────────────────────── */
+  /* ── 3. Quote fetching ──────────────────────────────── */
   let lastQuoteIndex = -1;
 
   function showFallback() {
