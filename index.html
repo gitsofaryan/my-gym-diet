@@ -1,209 +1,249 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Gym Diet</title>
-  <meta name="description" content="Hi, my name is Aryan Jain. I am a software developer, and this is my daily gym diet and routine.">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Gym Diet</title>
+    <meta
+      name="description"
+      content="Hi, my name is Aryan Jain. I am a software developer, and this is my daily gym diet and routine."
+    />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="image" href="goku.gif" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
 
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-  <!-- ═══════════════════════════════════════════════════════
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- ═══════════════════════════════════════════════════════
        FULL-SCREEN INTRO SPLASH (Goku GIF ready)
        ═══════════════════════════════════════════════════════ -->
-  <div id="splash" class="splash">
-    <div class="splash-inner">
-      <div class="splash-glow"></div>
-      <div class="splash-frame">
-           <img src="goku.gif" alt="Loading" class="splash-gif" id="splash-gif" data-duration-ms="10000"
-             onerror="this.style.display='none'; document.getElementById('splash-fallback').style.display='flex';" />
-        <div id="splash-fallback" class="splash-fallback" style="display:none;">
-          <div class="energy-ring"></div>
-          <span class="energy-bolt">⚡</span>
+    <div id="splash" class="splash">
+      <div class="splash-inner">
+        <div class="splash-glow"></div>
+        <div class="splash-frame">
+          <img
+            src="goku.gif"
+            alt="Loading"
+            class="splash-gif"
+            id="splash-gif"
+            data-duration-ms="10000"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+            onerror="
+              this.style.display = 'none';
+              document.getElementById('splash-fallback').style.display = 'flex';
+            "
+          />
+          <div
+            id="splash-fallback"
+            class="splash-fallback"
+            style="display: none"
+          >
+            <div class="energy-ring"></div>
+            <span class="energy-bolt">⚡</span>
+          </div>
         </div>
+        <!-- removed splash name and progress bar to let GIF display uninterrupted -->
       </div>
-      <!-- removed splash name and progress bar to let GIF display uninterrupted -->
     </div>
-  </div>
 
-  <!-- ═══════════════════════════════════════════════════════
+    <!-- ═══════════════════════════════════════════════════════
        PAGE CONTENT
        ═══════════════════════════════════════════════════════ -->
-  <div class="page">
-
-    <!-- Header -->
-    <header class="hero">
-      <div class="hero-row">
-        <a href="https://instagram.com/arien_jain" target="_blank" rel="noopener noreferrer" class="ig-badge">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-          </svg>
-          @arien_jain
-        </a>
-        <div class="clock-badge">
-          <span class="clock-live"></span>
-          <span id="clock">--:--</span>
+    <div class="page">
+      <!-- Header -->
+      <header class="hero">
+        <div class="hero-row">
+          <a
+            href="https://instagram.com/arien_jain"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="ig-badge"
+          >
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+            </svg>
+            @arien_jain
+          </a>
+          <div class="clock-badge">
+            <span class="clock-live"></span>
+            <span id="clock">--:--</span>
+          </div>
         </div>
-      </div>
 
-      <h1 class="hero-title">My Gym Diet.</h1>
-      <p class="hero-intro">Hi, I'm <strong>Aryan Jain.</strong> I am a software developer . This is my daily gym diet and routine.</p>
-    </header>
+        <h1 class="hero-title">My Gym Diet.</h1>
+        <p class="hero-intro">
+          Hi, I'm <strong>Aryan Jain.</strong> I am a software developer. This
+          is my daily gym diet and routine.
+        </p>
+      </header>
 
-    <!-- Routine Cards -->
-    <main class="cards">
+      <!-- Routine Cards -->
+      <main class="cards">
+        <article class="card" data-start="06:00" data-end="07:15">
+          <div class="card-emoji">🌅</div>
+          <div class="card-content">
+            <span class="card-time">6:00 AM</span>
+            <h2 class="card-title">Wake Up</h2>
+            <ul class="card-list">
+              <li>Drink 500ml Water</li>
+            </ul>
+          </div>
+        </article>
 
-      <article class="card" data-start="06:00" data-end="07:15">
-        <div class="card-emoji">🌅</div>
-        <div class="card-content">
-          <span class="card-time">6:00 AM</span>
-          <h2 class="card-title">Wake Up</h2>
-          <ul class="card-list">
-            <li>Drink 500ml Water</li>
-          </ul>
+        <article class="card" data-start="07:15" data-end="08:00">
+          <div class="card-emoji">🍌</div>
+          <div class="card-content">
+            <span class="card-time">7:15 AM</span>
+            <h2 class="card-title">Pre Workout</h2>
+            <ul class="card-list">
+              <li>Banana</li>
+              <li>Black Coffee <span class="optional">Optional</span></li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="card" data-start="08:00" data-end="09:00">
+          <div class="card-emoji">🏋️</div>
+          <div class="card-content">
+            <span class="card-time">8:00 – 9:00 AM</span>
+            <h2 class="card-title">Gym</h2>
+            <ul class="card-list">
+              <li>Strength Training</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="card" data-start="09:30" data-end="11:00">
+          <div class="card-emoji">🥣</div>
+          <div class="card-content">
+            <span class="card-time">9:30 AM</span>
+            <h2 class="card-title">Post Workout Breakfast</h2>
+            <ul class="card-list">
+              <li>500ml Milk</li>
+              <li>50g Yoga Bar Protein Oats</li>
+              <li>5g Creatine</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="card" data-start="11:00" data-end="11:30">
+          <div class="card-emoji">💼</div>
+          <div class="card-content">
+            <span class="card-time">11:00 AM</span>
+            <h2 class="card-title">Office</h2>
+            <ul class="card-list">
+              <li>Work</li>
+              <li class="dimmed">11:00 AM – 6:00 PM</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="card" data-start="11:30" data-end="12:30">
+          <div class="card-emoji">🥜</div>
+          <div class="card-content">
+            <span class="card-time">11:30 AM</span>
+            <h2 class="card-title">Brunch</h2>
+            <ul class="card-list">
+              <li>1 Scoop Pea Protein</li>
+              <li>1 tbsp Peanut Butter</li>
+              <li>5 Almonds</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="card" data-start="12:30" data-end="16:30">
+          <div class="card-emoji">🍛</div>
+          <div class="card-content">
+            <span class="card-time">12:30 PM</span>
+            <h2 class="card-title">Lunch</h2>
+            <ul class="card-list">
+              <li>3 Rotis</li>
+              <li>50g Paneer</li>
+              <li>200g Dal</li>
+              <li>1 Cup Dahi</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="card" data-start="16:30" data-end="18:00">
+          <div class="card-emoji">☕</div>
+          <div class="card-content">
+            <span class="card-time">4:30 PM</span>
+            <h2 class="card-title">
+              Tea Break <span class="optional">Optional</span>
+            </h2>
+          </div>
+        </article>
+
+        <article class="card" data-start="18:00" data-end="18:30">
+          <div class="card-emoji">🚶</div>
+          <div class="card-content">
+            <span class="card-time">6:00 PM</span>
+            <h2 class="card-title">Office Ends</h2>
+          </div>
+        </article>
+
+        <article class="card" data-start="18:30" data-end="23:00">
+          <div class="card-emoji">🍽️</div>
+          <div class="card-content">
+            <span class="card-time">6:30 PM</span>
+            <h2 class="card-title">Dinner</h2>
+            <ul class="card-list">
+              <li>2 Rotis</li>
+              <li>Sabzi</li>
+              <li>50g Paneer</li>
+              <li>1 Carrot</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="card" data-start="23:00" data-end="24:00">
+          <div class="card-emoji">😴</div>
+          <div class="card-content">
+            <span class="card-time">11:00 PM</span>
+            <h2 class="card-title">Sleep</h2>
+            <ul class="card-list">
+              <li>Sleep 7–8 Hours</li>
+            </ul>
+          </div>
+        </article>
+      </main>
+
+      <!-- Footer — Daily Motivational Quote -->
+      <footer class="footer">
+        <div class="quote-block">
+          <span class="quote-icon">✦</span>
+          <blockquote id="quote-text" class="quote-text">
+            "Discipline is choosing between what you want now and what you want
+            most."
+          </blockquote>
+          <cite id="quote-author" class="quote-author">— Abraham Lincoln</cite>
         </div>
-      </article>
+        <button id="new-quote" class="new-quote" aria-label="Get new quote">
+          ↻ New Quote
+        </button>
+      </footer>
+    </div>
 
-      <article class="card" data-start="07:15" data-end="08:00">
-        <div class="card-emoji">🍌</div>
-        <div class="card-content">
-          <span class="card-time">7:15 AM</span>
-          <h2 class="card-title">Pre Workout</h2>
-          <ul class="card-list">
-            <li>Banana</li>
-            <li>Black Coffee <span class="optional">Optional</span></li>
-          </ul>
-        </div>
-      </article>
-
-      <article class="card" data-start="08:00" data-end="09:00">
-        <div class="card-emoji">🏋️</div>
-        <div class="card-content">
-          <span class="card-time">8:00 – 9:00 AM</span>
-          <h2 class="card-title">Gym</h2>
-          <ul class="card-list">
-            <li>Strength Training</li>
-          </ul>
-        </div>
-      </article>
-
-      <article class="card" data-start="09:30" data-end="11:00">
-        <div class="card-emoji">🥣</div>
-        <div class="card-content">
-          <span class="card-time">9:30 AM</span>
-          <h2 class="card-title">Post Workout Breakfast</h2>
-          <ul class="card-list">
-            <li>500ml Milk</li>
-            <li>50g Yoga Bar Protein Oats</li>
-            <li>5g Creatine</li>
-          </ul>
-        </div>
-      </article>
-
-      <article class="card" data-start="11:00" data-end="11:30">
-        <div class="card-emoji">💼</div>
-        <div class="card-content">
-          <span class="card-time">11:00 AM</span>
-          <h2 class="card-title">Office</h2>
-          <ul class="card-list">
-            <li>Work</li>
-            <li class="dimmed">11:00 AM – 6:00 PM</li>
-          </ul>
-        </div>
-      </article>
-
-      <article class="card" data-start="11:30" data-end="12:30">
-        <div class="card-emoji">🥜</div>
-        <div class="card-content">
-          <span class="card-time">11:30 AM</span>
-          <h2 class="card-title">Brunch</h2>
-          <ul class="card-list">
-            <li>1 Scoop Pea Protein</li>
-            <li>1 tbsp Peanut Butter</li>
-            <li>5 Almonds</li>
-          </ul>
-        </div>
-      </article>
-
-      <article class="card" data-start="12:30" data-end="16:30">
-        <div class="card-emoji">🍛</div>
-        <div class="card-content">
-          <span class="card-time">12:30 PM</span>
-          <h2 class="card-title">Lunch</h2>
-          <ul class="card-list">
-            <li>3 Rotis</li>
-            <li>50g Paneer</li>
-            <li>200g Dal</li>
-            <li>1 Cup Dahi</li>
-          </ul>
-        </div>
-      </article>
-
-      <article class="card" data-start="16:30" data-end="18:00">
-        <div class="card-emoji">☕</div>
-        <div class="card-content">
-          <span class="card-time">4:30 PM</span>
-          <h2 class="card-title">Tea Break <span class="optional">Optional</span></h2>
-        </div>
-      </article>
-
-      <article class="card" data-start="18:00" data-end="18:30">
-        <div class="card-emoji">🚶</div>
-        <div class="card-content">
-          <span class="card-time">6:00 PM</span>
-          <h2 class="card-title">Office Ends</h2>
-        </div>
-      </article>
-
-      <article class="card" data-start="18:30" data-end="23:00">
-        <div class="card-emoji">🍽️</div>
-        <div class="card-content">
-          <span class="card-time">6:30 PM</span>
-          <h2 class="card-title">Dinner</h2>
-          <ul class="card-list">
-            <li>2 Rotis</li>
-            <li>Sabzi</li>
-            <li>50g Paneer</li>
-            <li>1 Carrot</li>
-          </ul>
-        </div>
-      </article>
-
-      <article class="card" data-start="23:00" data-end="24:00">
-        <div class="card-emoji">😴</div>
-        <div class="card-content">
-          <span class="card-time">11:00 PM</span>
-          <h2 class="card-title">Sleep</h2>
-          <ul class="card-list">
-            <li>Sleep 7–8 Hours</li>
-          </ul>
-        </div>
-      </article>
-
-    </main>
-
-    <!-- Footer — Daily Motivational Quote -->
-    <footer class="footer">
-      <div class="quote-block">
-        <span class="quote-icon">✦</span>
-        <blockquote id="quote-text" class="quote-text">
-          "Discipline is choosing between what you want now and what you want most."
-        </blockquote>
-        <cite id="quote-author" class="quote-author">— Abraham Lincoln</cite>
-      </div>
-      <button id="new-quote" class="new-quote" aria-label="Get new quote">↻ New Quote</button>
-    </footer>
-
-  </div>
-
-  <script src="app.js"></script>
-</body>
+    <script src="app.js"></script>
+  </body>
 </html>

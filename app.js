@@ -3,66 +3,96 @@
  * Splash loader fade · Live clock · Active card highlighting · Quote API
  */
 
-document.addEventListener('DOMContentLoaded', () => {
-
-  const splash     = document.getElementById('splash');
-  const clockEl    = document.getElementById('clock');
-  const cards      = document.querySelectorAll('.card');
-  const quoteText  = document.getElementById('quote-text');
-  const quoteAuth  = document.getElementById('quote-author');
-  const newQuote   = document.getElementById('new-quote');
+document.addEventListener("DOMContentLoaded", () => {
+  const splash = document.getElementById("splash");
+  const clockEl = document.getElementById("clock");
+  const cards = document.querySelectorAll(".card");
+  const quoteText = document.getElementById("quote-text");
+  const quoteAuth = document.getElementById("quote-author");
+  const newQuote = document.getElementById("new-quote");
 
   /* ── Curated fallback quotes ────────────────────────── */
   const QUOTES = [
-    { q: "Discipline is choosing between what you want now and what you want most.", a: "Abraham Lincoln" },
+    {
+      q: "Discipline is choosing between what you want now and what you want most.",
+      a: "Abraham Lincoln",
+    },
     { q: "The body achieves what the mind believes.", a: "Napoleon Hill" },
-    { q: "Success isn't always about greatness. It's about consistency.", a: "Dwayne Johnson" },
-    { q: "Push yourself because no one else is going to do it for you.", a: "Unknown" },
-    { q: "Don't limit your challenges. Challenge your limits.", a: "Jerry Dunn" },
+    {
+      q: "Success isn't always about greatness. It's about consistency.",
+      a: "Dwayne Johnson",
+    },
+    {
+      q: "Push yourself because no one else is going to do it for you.",
+      a: "Unknown",
+    },
+    {
+      q: "Don't limit your challenges. Challenge your limits.",
+      a: "Jerry Dunn",
+    },
     { q: "The only bad workout is the one that didn't happen.", a: "Unknown" },
     { q: "You don't have to be extreme, just consistent.", a: "Unknown" },
-    { q: "Take care of your body. It's the only place you have to live.", a: "Jim Rohn" },
+    {
+      q: "Take care of your body. It's the only place you have to live.",
+      a: "Jim Rohn",
+    },
     { q: "Action is the foundational key to all success.", a: "Pablo Picasso" },
     { q: "What hurts today makes you stronger tomorrow.", a: "Jay Cutler" },
-    { q: "Your body can stand almost anything. It's your mind you have to convince.", a: "Unknown" },
-    { q: "Strength does not come from the body. It comes from the will.", a: "Unknown" },
-    { q: "Rome wasn't built in a day, but they worked on it every single day.", a: "Unknown" },
+    {
+      q: "Your body can stand almost anything. It's your mind you have to convince.",
+      a: "Unknown",
+    },
+    {
+      q: "Strength does not come from the body. It comes from the will.",
+      a: "Unknown",
+    },
+    {
+      q: "Rome wasn't built in a day, but they worked on it every single day.",
+      a: "Unknown",
+    },
   ];
 
   /* ── 1. Splash — wait for GIF to finish (use data-duration-ms on the img)
-       If no duration is provided, fall back to 3500ms. Allow click to skip. */
+       If no duration is provided, fall back to 3500ms. */
   (function handleSplash() {
-    const gif = document.getElementById('splash-gif');
+    const gif = document.getElementById("splash-gif");
     const defaultMs = 3500;
+    let hideTimer = null;
 
     function hideSplash() {
-      if (splash) splash.classList.add('done');
+      if (splash) splash.classList.add("done");
     }
 
-    // Allow user to click the splash to skip early
-    if (splash) {
-      splash.addEventListener('click', hideSplash);
+    function scheduleHide(ms) {
+      if (hideTimer) clearTimeout(hideTimer);
+      hideTimer = setTimeout(hideSplash, ms);
     }
 
     if (gif) {
       const dataMs = parseInt(gif.dataset.durationMs, 10);
-      if (!Number.isNaN(dataMs) && dataMs > 0) {
-        setTimeout(hideSplash, dataMs + 120);
-        return;
-      }
+      const playMs = !Number.isNaN(dataMs) && dataMs > 0 ? dataMs : defaultMs;
 
-      // If image is already loaded, use fallback timeout
+      const startCountdown = () => {
+        if (!gif.naturalWidth) {
+          scheduleHide(defaultMs);
+          return;
+        }
+
+        // Give the browser a frame to paint the first decoded frame before the countdown starts.
+        requestAnimationFrame(() => scheduleHide(playMs + 120));
+      };
+
       if (gif.complete) {
-        setTimeout(hideSplash, defaultMs);
+        startCountdown();
         return;
       }
 
-      // Wait for the image to load, then wait defaultMs so the GIF can play
-      gif.addEventListener('load', () => setTimeout(hideSplash, defaultMs));
-      // If image fails to load, remove splash after defaultMs
-      gif.addEventListener('error', () => setTimeout(hideSplash, defaultMs));
+      gif.addEventListener("load", startCountdown, { once: true });
+      gif.addEventListener("error", () => scheduleHide(defaultMs), {
+        once: true,
+      });
     } else {
-      setTimeout(hideSplash, defaultMs);
+      scheduleHide(defaultMs);
     }
   })();
 
@@ -70,8 +100,8 @@ document.addEventListener('DOMContentLoaded', () => {
   function tick() {
     const now = new Date();
     let h = now.getHours();
-    const m  = String(now.getMinutes()).padStart(2, '0');
-    const ap = h >= 12 ? 'PM' : 'AM';
+    const m = String(now.getMinutes()).padStart(2, "0");
+    const ap = h >= 12 ? "PM" : "AM";
     h = h % 12 || 12;
     if (clockEl) clockEl.textContent = `${h}:${m} ${ap}`;
 
@@ -83,22 +113,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const now = hour * 60 + min;
     let found = false;
 
-    cards.forEach(c => {
+    cards.forEach((c) => {
       const s = c.dataset.start;
       const e = c.dataset.end;
       if (!s || !e) return;
 
-      const [sh, sm] = s.split(':').map(Number);
-      const [eh, em] = e.split(':').map(Number);
+      const [sh, sm] = s.split(":").map(Number);
+      const [eh, em] = e.split(":").map(Number);
       const start = sh * 60 + sm;
-      const end   = eh * 60 + em;
+      const end = eh * 60 + em;
 
-      c.classList.remove('now', 'passed');
+      c.classList.remove("now", "passed");
 
       if (now >= end) {
-        c.classList.add('passed');
+        c.classList.add("passed");
       } else if (!found && now >= start && now < end) {
-        c.classList.add('now');
+        c.classList.add("now");
         found = true;
       }
     });
@@ -108,9 +138,9 @@ document.addEventListener('DOMContentLoaded', () => {
       for (const c of cards) {
         const s = c.dataset.start;
         if (!s) continue;
-        const [sh, sm] = s.split(':').map(Number);
+        const [sh, sm] = s.split(":").map(Number);
         if (sh * 60 + sm > now) {
-          c.classList.add('now');
+          c.classList.add("now");
           break;
         }
       }
@@ -122,7 +152,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function showFallback() {
     let idx;
-    do { idx = Math.floor(Math.random() * QUOTES.length); } while (idx === lastQuoteIndex && QUOTES.length > 1);
+    do {
+      idx = Math.floor(Math.random() * QUOTES.length);
+    } while (idx === lastQuoteIndex && QUOTES.length > 1);
     lastQuoteIndex = idx;
     const pick = QUOTES[idx];
     if (quoteText) quoteText.textContent = `"${pick.q}"`;
@@ -133,10 +165,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!quoteText || !quoteAuth) return;
 
     // Briefly dim the text for a micro-transition
-    quoteText.style.opacity = '0.3';
+    quoteText.style.opacity = "0.3";
 
     try {
-      const res = await fetch('https://dummyjson.com/quotes/random');
+      const res = await fetch("https://dummyjson.com/quotes/random");
       if (!res.ok) throw new Error();
       const data = await res.json();
       quoteText.textContent = `"${data.quote}"`;
@@ -146,10 +178,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Fade back in
-    setTimeout(() => { quoteText.style.opacity = '1'; }, 80);
+    setTimeout(() => {
+      quoteText.style.opacity = "1";
+    }, 80);
   }
 
-  if (newQuote) newQuote.addEventListener('click', fetchQuote);
+  if (newQuote) newQuote.addEventListener("click", fetchQuote);
 
   /* ── Init ───────────────────────────────────────────── */
   tick();
